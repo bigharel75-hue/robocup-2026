@@ -2,7 +2,7 @@
 
 #define trigPin A4
 #define echoPin A3
-#define BAUD_RATE 115200
+#define BAUD_RATE 9600
 #define toDrive 255.0/50
 
 #define motorL0 5
@@ -18,6 +18,7 @@ motor motorR(motorR0, motorR1);
 int firstColor = 0;
 int secColor = 0;
 void setup() {
+  pinMode(A5, OUTPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(bsR, INPUT);
   pinMode(echoPin, INPUT);
@@ -32,12 +33,17 @@ void setup() {
   motorR.begin();
 }
 
+int speed = 125;
 void loop() {
-  motorL.move(200);
-  Serial.println("move motorL with 200");
-  motorR.move(200);
-  Serial.println("move motorR with 200");
-  delay(100);
+  if (analogRead(A5) >= 13) {
+    motorL.move(speed);
+    motorR.move(speed);
+  }
+  else {
+    motorL.move(-speed);
+    motorR.move(-speed);
+  }
+  // delay(50);
 }
 
 int readUltraSonic()
