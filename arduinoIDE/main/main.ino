@@ -33,8 +33,11 @@ void setup() {
   motorR.begin();
 }
 
-int speed = 125;
+int speed = 255;
 void loop() {
+  Serial.println("");
+  Serial.println(analogRead(A5));
+  Serial.println("");
   if (analogRead(A5) >= 13) {
     motorL.move(speed);
     motorR.move(speed);
@@ -43,7 +46,7 @@ void loop() {
     motorL.move(-speed);
     motorR.move(-speed);
   }
-  // delay(50);
+  delay(500);
 }
 
 int readUltraSonic()
